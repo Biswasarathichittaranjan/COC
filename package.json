@@ -1,0 +1,33 @@
+{
+  "name": "landfall",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "postinstall": "node scripts/copy-maplibre-worker.mjs",
+    "calibrate": "tsx scripts/calibrate.ts"
+  },
+  "dependencies": {
+    "@google/earthengine": "^1.7.46",
+    "@google/genai": "^2.24.0",
+    "maplibre-gl": "^6.11.2",
+    "next": "16.3.8",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.8",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  }
+}

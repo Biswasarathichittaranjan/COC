@@ -1,0 +1,142 @@
+// Coastal administrative units and the disaster-management authorities that receive advisories.
+// Populations are rounded census figures/estimates; vulnerability and drainage values are
+// illustrative placeholders to be replaced with authoritative indices (e.g. national SVI datasets).
+// Andhra Pradesh uses pre-2022 district boundaries.
+
+import type { Authority, District, Terrain } from "../types";
+
+export const AUTHORITIES: Authority[] = [
+  {
+    id: "in-tn",
+    name: "Tamil Nadu State Disaster Management Authority",
+    short: "TNSDMA",
+    country: "IN",
+    languages: [{ code: "ta", name: "Tamil" }],
+    warningAgency: "IMD (RSMC New Delhi)",
+  },
+  {
+    id: "in-ap",
+    name: "Andhra Pradesh State Disaster Management Authority",
+    short: "APSDMA",
+    country: "IN",
+    languages: [{ code: "te", name: "Telugu" }],
+    warningAgency: "IMD (RSMC New Delhi)",
+  },
+  {
+    id: "in-od",
+    name: "Odisha State Disaster Management Authority",
+    short: "OSDMA",
+    country: "IN",
+    languages: [{ code: "or", name: "Odia" }],
+    warningAgency: "IMD (RSMC New Delhi)",
+  },
+  {
+    id: "in-wb",
+    name: "West Bengal Dept. of Disaster Management & Civil Defence",
+    short: "WB DM&CD",
+    country: "IN",
+    languages: [{ code: "bn", name: "Bengali" }],
+    warningAgency: "IMD (RSMC New Delhi)",
+  },
+  {
+    id: "bd-ddm",
+    name: "Department of Disaster Management / Cyclone Preparedness Programme",
+    short: "DDM-CPP Bangladesh",
+    country: "BD",
+    languages: [{ code: "bn", name: "Bangla" }],
+    warningAgency: "Bangladesh Meteorological Department (BMD)",
+  },
+  {
+    id: "mm-ddm",
+    name: "Department of Disaster Management (Myanmar)",
+    short: "DDM Myanmar",
+    country: "MM",
+    languages: [{ code: "my", name: "Burmese" }],
+    warningAgency: "Dept. of Meteorology and Hydrology (DMH)",
+  },
+];
+
+type Row = [
+  id: string,
+  name: string,
+  country: "IN" | "BD" | "MM",
+  admin1: string,
+  authorityId: string,
+  lat: number,
+  lon: number,
+  elevM: number,
+  low: [number, number, number],
+  populationM: number,
+  lowlandShare: number,
+  terrain: Terrain,
+  vulnerability: number,
+  drainageMm24h: number,
+];
+
+const ROWS: Row[] = [
+  ["chennai", "Chennai", "IN", "Tamil Nadu", "in-tn", 13.08, 80.27, 6, [13.05, 80.28, 2.5], 4.65, 0.12, "urban", 0.35, 90],
+  ["cuddalore", "Cuddalore", "IN", "Tamil Nadu", "in-tn", 11.75, 79.75, 5, [11.7, 79.78, 2], 2.6, 0.15, "coastal_plain", 0.5, 150],
+  ["nagapattinam", "Nagapattinam", "IN", "Tamil Nadu", "in-tn", 10.77, 79.84, 5, [10.75, 79.85, 1.5], 1.6, 0.25, "delta", 0.55, 140],
+  ["nellore", "Nellore", "IN", "Andhra Pradesh", "in-ap", 14.44, 79.99, 18, [14.3, 80.12, 2], 2.97, 0.12, "coastal_plain", 0.45, 150],
+  ["prakasam", "Prakasam", "IN", "Andhra Pradesh", "in-ap", 15.5, 80.05, 12, [15.45, 80.17, 2.5], 3.4, 0.1, "coastal_plain", 0.5, 150],
+  ["guntur", "Guntur", "IN", "Andhra Pradesh", "in-ap", 16.3, 80.44, 30, [15.87, 80.48, 2], 4.9, 0.08, "coastal_plain", 0.45, 140],
+  ["krishna", "Krishna", "IN", "Andhra Pradesh", "in-ap", 16.19, 81.14, 5, [15.85, 80.95, 1.5], 4.5, 0.2, "delta", 0.5, 140],
+  ["east-godavari", "East Godavari", "IN", "Andhra Pradesh", "in-ap", 16.99, 82.25, 5, [16.55, 82.15, 1.5], 5.15, 0.25, "delta", 0.5, 140],
+  ["visakhapatnam", "Visakhapatnam", "IN", "Andhra Pradesh", "in-ap", 17.7, 83.22, 20, [17.69, 83.28, 3], 4.29, 0.08, "urban", 0.4, 110],
+  ["srikakulam", "Srikakulam", "IN", "Andhra Pradesh", "in-ap", 18.3, 83.9, 20, [18.33, 84.1, 3], 2.7, 0.12, "coastal_plain", 0.55, 150],
+  ["ganjam", "Ganjam", "IN", "Odisha", "in-od", 19.31, 84.79, 25, [19.35, 85.05, 2.5], 3.52, 0.1, "coastal_plain", 0.55, 150],
+  ["puri", "Puri", "IN", "Odisha", "in-od", 19.81, 85.83, 6, [19.75, 85.6, 2], 1.7, 0.25, "coastal_plain", 0.5, 130],
+  ["khordha", "Khordha", "IN", "Odisha", "in-od", 20.27, 85.84, 45, [19.95, 85.5, 3], 2.25, 0.05, "urban", 0.35, 110],
+  ["cuttack", "Cuttack", "IN", "Odisha", "in-od", 20.46, 85.88, 25, [20.35, 86.2, 5], 2.62, 0.05, "delta", 0.45, 120],
+  ["jagatsinghpur", "Jagatsinghpur", "IN", "Odisha", "in-od", 20.26, 86.17, 8, [20.25, 86.55, 1.5], 1.14, 0.35, "delta", 0.6, 140],
+  ["kendrapara", "Kendrapara", "IN", "Odisha", "in-od", 20.5, 86.42, 8, [20.65, 86.9, 1.5], 1.44, 0.35, "delta", 0.6, 140],
+  ["bhadrak", "Bhadrak", "IN", "Odisha", "in-od", 21.06, 86.5, 10, [20.95, 86.93, 2], 1.5, 0.2, "delta", 0.55, 140],
+  ["balasore", "Balasore", "IN", "Odisha", "in-od", 21.49, 86.93, 16, [21.45, 87.05, 2.5], 2.32, 0.15, "coastal_plain", 0.55, 140],
+  ["purba-medinipur", "Purba Medinipur", "IN", "West Bengal", "in-wb", 22.3, 87.92, 7, [21.72, 87.7, 2], 5.1, 0.25, "delta", 0.5, 130],
+  ["south-24-parganas", "South 24 Parganas", "IN", "West Bengal", "in-wb", 22.19, 88.19, 5, [21.7, 88.6, 1.2], 8.16, 0.4, "delta", 0.65, 120],
+  ["north-24-parganas", "North 24 Parganas", "IN", "West Bengal", "in-wb", 22.72, 88.6, 8, [22.25, 88.9, 1.8], 10.0, 0.12, "delta", 0.5, 110],
+  ["kolkata", "Kolkata", "IN", "West Bengal", "in-wb", 22.57, 88.36, 7, [22.52, 88.4, 4], 4.5, 0.2, "urban", 0.35, 90],
+  ["howrah", "Howrah", "IN", "West Bengal", "in-wb", 22.59, 88.26, 8, [22.35, 88.1, 4], 4.85, 0.1, "urban", 0.4, 100],
+  ["satkhira", "Satkhira", "BD", "Khulna Division", "bd-ddm", 22.72, 89.07, 4, [22.05, 89.2, 1.2], 2.2, 0.35, "delta", 0.7, 120],
+  ["khulna", "Khulna", "BD", "Khulna Division", "bd-ddm", 22.82, 89.55, 3, [22.3, 89.5, 1.2], 2.6, 0.3, "delta", 0.6, 110],
+  ["bagerhat", "Bagerhat", "BD", "Khulna Division", "bd-ddm", 22.65, 89.79, 3, [22.05, 89.8, 1.0], 1.6, 0.35, "delta", 0.65, 120],
+  ["pirojpur", "Pirojpur", "BD", "Barishal Division", "bd-ddm", 22.58, 89.97, 3, [22.3, 89.95, 1.5], 1.2, 0.3, "delta", 0.6, 120],
+  ["barguna", "Barguna", "BD", "Barishal Division", "bd-ddm", 22.15, 90.13, 2, [21.95, 90.0, 1.0], 1.0, 0.5, "delta", 0.7, 120],
+  ["patuakhali", "Patuakhali", "BD", "Barishal Division", "bd-ddm", 22.36, 90.33, 2, [21.9, 90.2, 1.0], 1.7, 0.45, "delta", 0.7, 120],
+  ["barishal", "Barishal", "BD", "Barishal Division", "bd-ddm", 22.7, 90.37, 3, [22.45, 90.5, 2], 2.6, 0.2, "delta", 0.55, 110],
+  ["bhola", "Bhola", "BD", "Barishal Division", "bd-ddm", 22.69, 90.65, 2, [22.0, 90.72, 0.8], 2.0, 0.55, "delta", 0.75, 120],
+  ["lakshmipur", "Lakshmipur", "BD", "Chattogram Division", "bd-ddm", 22.94, 90.84, 4, [22.7, 90.95, 1.5], 1.9, 0.25, "delta", 0.6, 120],
+  ["noakhali", "Noakhali", "BD", "Chattogram Division", "bd-ddm", 22.87, 91.1, 4, [22.2, 91.08, 0.8], 3.6, 0.3, "delta", 0.7, 120],
+  ["feni", "Feni", "BD", "Chattogram Division", "bd-ddm", 23.01, 91.4, 6, [22.8, 91.45, 2], 1.6, 0.15, "coastal_plain", 0.55, 130],
+  ["chattogram", "Chattogram", "BD", "Chattogram Division", "bd-ddm", 22.36, 91.8, 6, [22.48, 91.45, 1.2], 9.2, 0.12, "hilly", 0.5, 100],
+  ["coxs-bazar", "Cox's Bazar (incl. refugee camps)", "BD", "Chattogram Division", "bd-ddm", 21.43, 92.01, 8, [21.8, 91.87, 1.2], 3.8, 0.25, "hilly", 0.8, 120],
+  ["maungdaw", "Maungdaw", "MM", "Rakhine State", "mm-ddm", 20.82, 92.37, 6, [20.55, 92.5, 1.5], 0.4, 0.35, "coastal_plain", 0.85, 150],
+  ["sittwe", "Sittwe", "MM", "Rakhine State", "mm-ddm", 20.15, 92.9, 5, [20.12, 92.88, 1.5], 0.55, 0.45, "delta", 0.85, 130],
+  ["kyaukphyu", "Kyaukphyu", "MM", "Rakhine State", "mm-ddm", 19.43, 93.55, 8, [19.35, 93.6, 2], 0.45, 0.25, "coastal_plain", 0.7, 150],
+  ["thandwe", "Thandwe", "MM", "Rakhine State", "mm-ddm", 18.46, 94.37, 10, [18.4, 94.33, 2.5], 0.4, 0.15, "hilly", 0.65, 160],
+  ["pathein", "Pathein", "MM", "Ayeyarwady Region", "mm-ddm", 16.78, 94.73, 5, [16.1, 94.4, 1.0], 1.6, 0.3, "delta", 0.7, 140],
+  ["labutta", "Labutta", "MM", "Ayeyarwady Region", "mm-ddm", 16.15, 94.76, 2, [15.85, 94.8, 0.8], 0.32, 0.7, "delta", 0.8, 140],
+  ["pyapon", "Pyapon", "MM", "Ayeyarwady Region", "mm-ddm", 16.28, 95.68, 2, [15.9, 95.3, 0.8], 1.0, 0.6, "delta", 0.8, 140],
+  ["yangon", "Yangon", "MM", "Yangon Region", "mm-ddm", 16.84, 96.17, 10, [16.55, 96.25, 2], 7.4, 0.1, "urban", 0.5, 100],
+];
+
+export const DISTRICTS: District[] = ROWS.map((r) => ({
+  id: r[0],
+  name: r[1],
+  country: r[2],
+  admin1: r[3],
+  authorityId: r[4],
+  lat: r[5],
+  lon: r[6],
+  elevM: r[7],
+  lowland: { lat: r[8][0], lon: r[8][1], elevM: r[8][2] },
+  population: Math.round(r[9] * 1e6),
+  lowlandShare: r[10],
+  terrain: r[11],
+  vulnerability: r[12],
+  drainageMm24h: r[13],
+  languages: ["en", ...(AUTHORITIES.find((a) => a.id === r[4])?.languages.map((l) => l.code) ?? [])],
+}));
+
+export const DISTRICT_BY_ID = new Map(DISTRICTS.map((d) => [d.id, d]));
+export const AUTHORITY_BY_ID = new Map(AUTHORITIES.map((a) => [a.id, a]));
